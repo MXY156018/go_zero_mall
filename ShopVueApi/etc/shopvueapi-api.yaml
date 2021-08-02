@@ -1,0 +1,9 @@
+Name: ShopVueApi-api
+Host: 0.0.0.0
+Port: 8889
+
+Mysql:
+  SqlDns: root:123456@tcp(127.0.0.1:3306)/crmeb?charset=utf8&parseTime=True&loc=Local
+Auth:
+  AccessSecret: go-zero-mall
+  AccessExpire: 3600

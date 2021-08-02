@@ -1,25 +1,25 @@
 package handler
 
 import (
+	"go_zero_mall/ShopVueApi/internal/types"
 	"net/http"
 
-	"go_zero_mall/internal/logic"
-	"go_zero_mall/internal/svc"
-	"go_zero_mall/internal/types"
-
 	"github.com/tal-tech/go-zero/rest/httpx"
+	"go_zero_mall/ShopVueApi/internal/logic"
+	"go_zero_mall/ShopVueApi/internal/svc"
 )
 
-func Go_zero_mallHandler(ctx *svc.ServiceContext) http.HandlerFunc {
+func ShopVueApiHandlerIndex(ctx *svc.ServiceContext) http.HandlerFunc {
+
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Request
+		var req types.IndexRequst
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
 			return
 		}
 
-		l := logic.NewGo_zero_mallLogic(r.Context(), ctx)
-		resp, err := l.Go_zero_mall(req)
+		l := logic.NewShopVueApiLogic(r.Context(), ctx)
+		resp, err := l.Index(req.Uid)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
