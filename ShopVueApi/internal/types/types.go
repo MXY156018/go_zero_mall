@@ -187,9 +187,21 @@ type UserLevel struct {
 	LevelId   int   `json:"level_id"`
 	IsForever int   `json:"is_forever"`
 	ValidTime int64 `json:"valid_time"`
+	AddTime   int   `json:"add_time"`
 	Id        int   `json:"id"`
 	Status    int   `json:"status"`
 	Grade     int   `json:"grade"`
+}
+type VipInfo struct {
+	Id       int     `json:"id"`
+	AddTime  int     `json:"add_time"`
+	DisCount float64 `json:"discount"`
+	LevelId  int     `json:"level_id"`
+	Name     string  `json:"name"`
+	Money    float64 `json:"money"`
+	Icon     string  `json:"icon"`
+	IsPay    int     `json:"is_pay"`
+	Grade    int     `json:"grade"`
 }
 type SystemUserLevel struct {
 	Id       int     `json:"id"`
@@ -266,7 +278,13 @@ type StoreProductCate struct {
 	ProductId int `json:"product_id"`
 	CateId    int `json:"cate_id"`
 }
-
+type StoreProductRelation struct {
+	Uid       int    `jsonn:"uid"`
+	ProductId int    `json:"product_id"`
+	Type      string `json:"type"`
+	Category  string `json:"category"`
+	AddTime   int    `json:"add_time"`
+}
 type StoreCategoryData struct {
 	Id       int             `json:"id"`
 	Pid      int             `json:"pid"`
@@ -295,6 +313,20 @@ type StoreCouponIssue struct {
 	UseMinPrice float64 `json:"use_min_price"`
 	IsUse       bool    `json:"is_use"`
 }
+type StoreCouponUser struct {
+	Id          int     `json:"id"`
+	Cid         int     `json:"cid"`
+	Uid         int     `json:"uid"`
+	CouponTitle string  `json:"coupon_title"`
+	CouponPrice float64 `json:"coupon_price"`
+	UseMinPrice float64 `json:"use_min_price"`
+	AddTime     int     `json:"add_time"`
+	EndTime     int     `json:"end_time"`
+	UseTime     int     `json:"use_time"`
+	Type        string  `json:"type"`
+	Status      int     `json:"status"`
+	IsFail      int     `json:"is_fail"`
+}
 type Article struct {
 	Id         int    `json:"id"`
 	Title      string `json:"title"`
@@ -316,4 +348,101 @@ type ArticleDetailRequest struct {
 	Id    string `json:"id"`
 	Page  int    `json:"page"`
 	Limit int    `json:"limit"`
+}
+type LoginRequest struct {
+	Account  string `json:"account"`
+	Password string `json:"password"`
+}
+type LoginResponse struct {
+	ExpiresTime string `json:"expires_time"`
+	Token       string `json:"token"`
+}
+type User struct {
+	Uid            int     `json:"uid"`
+	RealName       string  `json:"real_name"`
+	Birthday       int     `json:"birthday"`
+	CardId         string  `json:"card_id"`
+	PartnerId      int     `json:"partner_id"`
+	GroupId        int     `json:"group_id"`
+	Nickname       string  `json:"nickname"`
+	Avatar         string  `json:"avatar"`
+	Phone          string  `json:"phone"`
+	NowMoney       float64 `json:"now_money"`
+	BrokeragePrice float64 `json:"brokerage_price"`
+	Integral       float64 `json:"integral"`
+	SignNum        int     `json:"sign_num"`
+	Level          int     `json:"level"`
+	SpreadUid      int     `json:"spread_uid"`
+	SpreadTime     int     `json:"spread_time"`
+	UserType       string  `json:"user_type"`
+	IsPromoter     int     `json:"is_promoter"`
+	PayCount       int     `json:"pay_count"`
+	SpreadCount    int     `json:"spread_count"`
+	Addres         string  `json:"addres"`
+	Adminid        int     `json:"adminid"`
+	LoginType      string  `json:"login_type"`
+	Status         int     `json:"status"`
+}
+type OrderStatusNum struct {
+	CompleteCount  int64   `json:"complete_count"`
+	EvaluatedCount int64   `json:"evaluated_count"`
+	OrderCount     int64   `json:"order_count"`
+	ReceivedCount  int64   `json:"received_count"`
+	RefundCount    int64   `json:"refund_count"`
+	SumPrice       float64 `json:"sum_price"`
+	UnpaidCount    int64   `json:"unpaid_count"`
+	UnshippedCount int64   `json:"unshipped_count"`
+}
+type UserInfo struct {
+	User              User
+	CouponCount       int64          `json:"couponCount"`
+	Like              int64          `json:"like"`
+	OrderStatusNum    OrderStatusNum `json:"orderStatusNum"`
+	Notice            int64          `json:"notice"`
+	Brokerage         float64        `json:"brokerage"`
+	Recharge          float64        `json:"recharge"`
+	OrderStatusSum    float64        `json:"orderStatusSum"`
+	ExtractTotalPrice float64        `json:"extractTotalPrice"`
+	ExtractPrice      float64        `json:"extractPrice"`
+	Statu             int            `json:"statu"`
+	Vip               bool           `json:"vip"`
+	VipId             int            `json:"vip_id"`
+	VipIcon           string         `json:"vip_icon"`
+	VipName           string         `json:"vip_name"`
+	YesterDay         int            `json:"yester_day"`
+	RechargeSwitch    int            `json:"recharge_switch"`
+	Adminid           bool           `json:"adminid"`
+	Phone             string         `json:"phone"`
+	SwitchUserInfo    []User         `json:"switchUserInfo"`
+}
+
+type StoreOrder struct {
+}
+
+type UserNotice struct {
+	Id       int    `json:"id"`
+	Uid      string `json:"uid"`
+	Type     int    `json:"type"`
+	User     string `json:"user"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	IsSend   int    `json:"is_send"`
+	SendTime int    `json:"send_time"`
+}
+type UserNoticeSee struct {
+}
+type UserBill struct {
+	AddTime int64  `json:"add_time"`
+	Title   string `json:"title"`
+	Number  string `json:"number"`
+}
+type UserExtract struct {
+}
+type StoreService struct{}
+type SignUserRequest struct {
+	Sign     int `json:"sign"`
+	Integral int `json:"integral"`
+	All      int `json:"all"`
+}
+type UserSign struct {
 }

@@ -69,4 +69,60 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 	)
+	//user
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/login",
+				Handler: HandlerLogin(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/sign/config",
+				Handler: HandlerSignConfig(serverCtx),
+			},
+		},
+	)
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/userinfo",
+				Handler: HandlerUserInfo(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/logout",
+				Handler: HandlerLogout(serverCtx),
+			},
+
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/menu/user",
+				Handler: HandlerMenuUser(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/sign/user",
+				Handler: HandlerSignUser(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/sign/list",
+				Handler: HandlerSignList(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/sign/integral",
+				Handler: HandlerSignIntegral(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/sign/month",
+				Handler: HandlerSignMonth(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
 }
