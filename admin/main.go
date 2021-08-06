@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/rest"
+	config2 "go_zero_mall/admin/internal/config"
+	loginRoutes2 "go_zero_mall/admin/internal/handler/loginRoutes"
+	svc2 "go_zero_mall/admin/internal/svc"
 	"go_zero_mall/database"
-	"go_zero_mall/internal/config"
-	"go_zero_mall/internal/handler/loginRoutes"
-	"go_zero_mall/internal/svc"
 )
 
 var configFile = flag.String("f", "etc/gozeromall-api.yaml", "the config file")
@@ -16,16 +16,16 @@ var configFile = flag.String("f", "etc/gozeromall-api.yaml", "the config file")
 func main() {
 	flag.Parse()
 
-	var c config.Config
+	var c config2.Config
 	conf.MustLoad(*configFile, &c)
 
 	database.DataBase(c.Mysql.SqlDns)
 
-	ctx := svc.NewServiceContext(c)
+	ctx := svc2.NewServiceContext(c)
 	server := rest.MustNewServer(c.RestConf)
 	defer server.Stop()
 
-	loginRoutes.RegisterHandlers(server, ctx)
+	loginRoutes2.RegisterHandlers(server, ctx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

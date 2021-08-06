@@ -455,3 +455,26 @@ type CollectAllRequest struct {
 	Id       []int  `json:"id"`
 	Category string `json:"category" gorm:"default:'product'"`
 }
+type CombinationDatailRequest struct {
+	Id int `json:"id"`
+}
+type StoreCombination struct {
+	Id            int     `json:"id,omitempty"`
+	ProductId     int     `json:"product_id,omitempty"`
+	Image         string  `json:"image,omitempty"`
+	Images        string  `json:"images,omitempty"`
+	Title         string  `json:"title,omitempty"`
+	People        int     `json:"people,omitempty"`
+	Info          string  `json:"info,omitempty"`
+	Price         float64 `json:"price,omitempty"`
+	Sales         int     `json:"sales,omitempty"`
+	Stock         int     `json:"stock,omitempty"`
+	IsPostage     int     `json:"is_postage,omitempty"`
+	Postage       float64 `json:"postage,omitempty"`
+	Description   string  `json:"description,omitempty"`
+	StartTime     int     `json:"start_time,omitempty"`
+	StopTime      int     `json:"stop_time,omitempty"`
+	EffectiveTime int     `json:"effective_time,omitempty"`
+	Browse        int     `json:"browse,omitempty"`
+	UnitName      string  `json:"unit_name,omitempty"`
+}

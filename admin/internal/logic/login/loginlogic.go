@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/tal-tech/go-zero/core/logx"
+	svc2 "go_zero_mall/admin/internal/svc"
+	Typeslogin2 "go_zero_mall/admin/internal/types/login"
 	"go_zero_mall/database"
-	"go_zero_mall/internal/svc"
-	Typeslogin "go_zero_mall/internal/types/login"
 	"net/http"
 	"time"
 )
@@ -15,10 +15,10 @@ import (
 type LoginLogic struct {
 	logx.Logger
 	ctx    context.Context
-	svcCtx *svc.ServiceContext
+	svcCtx *svc2.ServiceContext
 }
 
-func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginLogic {
+func NewLoginLogic(ctx context.Context, svcCtx *svc2.ServiceContext) LoginLogic {
 	return LoginLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
@@ -26,13 +26,13 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginLogic {
 	}
 }
 
-func (l *LoginLogic) Login(req Typeslogin.LoginRequest, r *http.Request) (*Typeslogin.LoginResponse, error) {
-	var systemadmin Typeslogin.SystemAdmin
+func (l *LoginLogic) Login(req Typeslogin2.LoginRequest, r *http.Request) (*Typeslogin2.LoginResponse, error) {
+	var systemadmin Typeslogin2.SystemAdmin
 
 	row := database.DB.Model(&systemadmin).Where("account = ? and pwd = ?", req.Accout, req.Pwd).Find(&systemadmin)
 
 	if row.RowsAffected == 0 {
-		return &Typeslogin.LoginResponse{
+		return &Typeslogin2.LoginResponse{
 
 		}, nil
 	}
@@ -49,7 +49,7 @@ func (l *LoginLogic) Login(req Typeslogin.LoginRequest, r *http.Request) (*Types
 
 	fmt.Printf("%v", systemadmin)
 	getMenus()
-	return &Typeslogin.LoginResponse{
+	return &Typeslogin2.LoginResponse{
 		UserInfo:     systemadmin,
 		Token:        jwtToken,
 		Expires_time: accessExpire + now,
@@ -74,7 +74,7 @@ func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (
 
 
 func getMenus(){
-	var menus []Typeslogin.SystemMenus
+	var menus []Typeslogin2.SystemMenus
 	row:=database.DB.Model(&menus).Find(&menus)
 	if row.RowsAffected==0{
 

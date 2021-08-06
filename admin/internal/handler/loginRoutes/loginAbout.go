@@ -1,22 +1,20 @@
 package loginRoutes
 
 import (
+	login2 "go_zero_mall/admin/internal/handler/login"
+	svc2 "go_zero_mall/admin/internal/svc"
 	"net/http"
-
-	"go_zero_mall/internal/svc"
-
-	"go_zero_mall/internal/handler/login"
 
 	"github.com/tal-tech/go-zero/rest"
 )
 
-func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
+func RegisterHandlers(engine *rest.Server, serverCtx *svc2.ServiceContext) {
 	engine.AddRoutes(
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
 				Path:    "/admin/login",
-				Handler: login.LoginHandler(serverCtx),
+				Handler: login2.LoginHandler(serverCtx),
 			},
 		},
 	)

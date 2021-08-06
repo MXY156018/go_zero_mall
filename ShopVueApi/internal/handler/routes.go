@@ -2,7 +2,6 @@
 package handler
 
 import (
-	"github.com/tal-tech/go-zero/core/logx"
 	"net/http"
 
 	"go_zero_mall/ShopVueApi/internal/svc"
@@ -12,6 +11,20 @@ import (
 )
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
+	//这里注册文件服务
+	dirlevel := []string{":1", ":2", ":3", ":4", ":5", ":6", ":7", ":8"}
+	patern := "/Upload/"
+	dirpath := "./Upload/"
+	for i := 1; i < len(dirlevel); i++ {
+		path := patern + strings.Join(dirlevel[:i], "/")
+		//最后生成 /asset
+		engine.AddRoute(
+			rest.Route{
+				Method:  http.MethodGet,
+				Path:    path,
+				Handler: dirhandler(patern, dirpath),
+			})
+	}
 	engine.AddRoutes(
 		[]rest.Route{
 			{
@@ -172,22 +185,12 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/api/combination/list",
 				Handler: HandlerCombinationList(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/combination/detail",
+				Handler: HandlerCombinationDetail(serverCtx),
+			},
 		},
 	)
-	//这里注册
-	dirlevel := []string{":1", ":2", ":3", ":4", ":5", ":6", ":7", ":8"}
-	patern := "/Upload/"
-	dirpath := "./Upload/"
-	for i := 1; i < len(dirlevel); i++ {
-		path := patern + strings.Join(dirlevel[:i], "/")
-		//最后生成 /asset
-		engine.AddRoute(
-			rest.Route{
-				Method:  http.MethodGet,
-				Path:    path,
-				Handler: dirhandler(patern, dirpath),
-			})
 
-		logx.Infof("register dir  %s  %s", path, dirpath)
-	}
 }
