@@ -2,11 +2,13 @@
 package handler
 
 import (
+	"github.com/tal-tech/go-zero/core/logx"
 	"net/http"
 
 	"go_zero_mall/ShopVueApi/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
+	"strings"
 )
 
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
@@ -84,6 +86,7 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 	)
+	//用户相关  需登陆
 	engine.AddRoutes(
 		[]rest.Route{
 			{
@@ -125,4 +128,66 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
+	//用户类 收藏  需登陆
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/collect/user",
+				Handler: HandlerCollectUser(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/collect/add",
+				Handler: HandlerCollectAdd(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/collect/del",
+				Handler: HandlerCollectDel(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/api/collect/all",
+				Handler: HandlerCollectAll(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+	//产品类  无需登陆
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/product/hot",
+				Handler: HandlerProductHot(serverCtx),
+			},
+		},
+	)
+	//活动 ----拼团
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/api/combination/list",
+				Handler: HandlerCombinationList(serverCtx),
+			},
+		},
+	)
+	//这里注册
+	dirlevel := []string{":1", ":2", ":3", ":4", ":5", ":6", ":7", ":8"}
+	patern := "/Upload/"
+	dirpath := "./Upload/"
+	for i := 1; i < len(dirlevel); i++ {
+		path := patern + strings.Join(dirlevel[:i], "/")
+		//最后生成 /asset
+		engine.AddRoute(
+			rest.Route{
+				Method:  http.MethodGet,
+				Path:    path,
+				Handler: dirhandler(patern, dirpath),
+			})
+
+		logx.Infof("register dir  %s  %s", path, dirpath)
+	}
 }

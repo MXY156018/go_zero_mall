@@ -446,3 +446,12 @@ type SignUserRequest struct {
 }
 type UserSign struct {
 }
+
+type CollectAddRequest struct {
+	Id       int    `json:"id"`
+	Category string `json:"category" gorm:"default:'product'"`
+}
+type CollectAllRequest struct {
+	Id       []int  `json:"id"`
+	Category string `json:"category" gorm:"default:'product'"`
+}
