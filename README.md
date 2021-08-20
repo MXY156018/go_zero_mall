@@ -1,2 +1,2 @@
 # go_zero_mall
-cremb  go-zero单体+gorm实现
+cremb前端  go-zero单体+gorm实现
