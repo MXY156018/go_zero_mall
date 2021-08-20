@@ -459,22 +459,22 @@ type CombinationDatailRequest struct {
 	Id int `json:"id"`
 }
 type StoreCombination struct {
-	Id            int     `json:"id,omitempty"`
-	ProductId     int     `json:"product_id,omitempty"`
-	Image         string  `json:"image,omitempty"`
-	Images        string  `json:"images,omitempty"`
-	Title         string  `json:"title,omitempty"`
-	People        int     `json:"people,omitempty"`
-	Info          string  `json:"info,omitempty"`
-	Price         float64 `json:"price,omitempty"`
-	Sales         int     `json:"sales,omitempty"`
-	Stock         int     `json:"stock,omitempty"`
-	IsPostage     int     `json:"is_postage,omitempty"`
-	Postage       float64 `json:"postage,omitempty"`
-	Description   string  `json:"description,omitempty"`
-	StartTime     int     `json:"start_time,omitempty"`
-	StopTime      int     `json:"stop_time,omitempty"`
-	EffectiveTime int     `json:"effective_time,omitempty"`
-	Browse        int     `json:"browse,omitempty"`
-	UnitName      string  `json:"unit_name,omitempty"`
+	Id            int     `json:"id"`
+	ProductId     int     `json:"product_id"`
+	Image         string  `json:"image"`
+	Images        string  `json:"images"`
+	Title         string  `json:"title"`
+	People        int     `json:"people"`
+	Info          string  `json:"info"`
+	Price         float64 `json:"price"`
+	Sales         int     `json:"sales"`
+	Stock         int     `json:"stock"`
+	IsPostage     int     `json:"is_postage"`
+	Postage       float64 `json:"postage"`
+	Description   string  `json:"description"`
+	StartTime     int     `json:"start_time"`
+	StopTime      int     `json:"stop_time"`
+	EffectiveTime int     `json:"effective_time"`
+	Browse        int     `json:"browse"`
+	UnitName      string  `json:"unit_name"`
 }
